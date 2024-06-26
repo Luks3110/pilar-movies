@@ -1,27 +1,27 @@
 import {
   MovieSearchParams,
   MovieSearchResponse,
-  SearchResponse
-} from "@/lib/types/search";
+  SearchResponse,
+} from '@/lib/types/search'
 
-import httpClient from "../client/httpClient";
+import httpClient from '../client/httpClient'
 
-const getMovies = async ({ search }: MovieSearchParams) => {
+const getMovies = async ({ search, page }: MovieSearchParams) => {
   return httpClient.get<SearchResponse<MovieSearchResponse>>(
-    `/search/movie?query=${search}&language=pt-BR`
-  );
-};
+    `/search/movie?query=${search}&language=pt-BR&page=${page}`,
+  )
+}
 
-const getTrendingMovies = async ({ timeWindow }: MovieSearchParams) => {
+const getTrendingMovies = async ({ timeWindow, page }: MovieSearchParams) => {
   return httpClient.get<SearchResponse<MovieSearchResponse>>(
-    `/trending/movie/${timeWindow}`
-  );
-};
+    `/trending/movie/${timeWindow}?page=${page}`,
+  )
+}
 
-const getPopularMovies = async ({ search }: MovieSearchParams) => {
+const getPopularMovies = async ({ search, page }: MovieSearchParams) => {
   return httpClient.get<SearchResponse<MovieSearchResponse>>(
-    `/movie/popular?query=${search}&language=pt-BR`
-  );
-};
+    `/movie/popular?query=${search}&language=pt-BR&page=${page}`,
+  )
+}
 
-export { getMovies, getTrendingMovies, getPopularMovies };
+export { getMovies, getPopularMovies, getTrendingMovies }

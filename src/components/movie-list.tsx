@@ -8,11 +8,12 @@ import { timeWindowsOptions } from '@/lib/constants/timeWindowsOptions'
 import { TimeWindow } from '@/lib/types/filter'
 import MovieSearchbar from './movie-searchbar'
 import AnimatedMovieCard from './movies/animated-movie-card'
+import { MoviePagination } from './movies/movie-pagination'
 import SearchSwitch from './movies/search-switch'
 import { useToast } from './ui/use-toast'
 
 export function MovieList() {
-  const { search, searchType, timeWindow, setSearchType, setTimeWindow } =
+  const { search, searchType, timeWindow, page, setTimeWindow } =
     useFilterStore()
 
   const handleTimeWindow = (newTimeWindow: TimeWindow) => {
@@ -25,6 +26,7 @@ export function MovieList() {
     isError,
   } = useSearch({
     search,
+    page,
     searchType,
     timeWindow,
   })
@@ -72,28 +74,33 @@ export function MovieList() {
           handleTimeWindow={handleTimeWindow}
           timeWindowsOptions={timeWindowsOptions}
         />
-        <div
-          className={` md:col-span-4 lg:col-span-6 grid md:grid-cols-3 lg:grid-cols-6 ${!normalOrTrending ? 'md:grid-cols-3 lg:grid-cols-5 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
-        >
-          {!isLoading || (!isError && filteredMovies?.length) ? (
-            filteredMovies?.map((movie) => (
-              <AnimatedMovieCard key={movie.id} movie={movie} />
-            ))
-          ) : (
-            <div
-              className="fixed inset-0 flex items-center justify-center"
-              data-testid="loading-movie-spinner"
-            >
+        <div>
+          <div
+            className={` md:col-span-4 lg:col-span-6 grid md:grid-cols-3 lg:grid-cols-5 ${!normalOrTrending ? 'md:grid-cols-3 lg:grid-cols-5 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
+          >
+            {!isLoading || (!isError && filteredMovies?.length) ? (
+              filteredMovies?.map((movie) => (
+                <AnimatedMovieCard key={movie.id} movie={movie} />
+              ))
+            ) : (
               <div
-                className="inline-block h-96 w-96 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                role="status"
+                className="fixed inset-0 flex items-center justify-center"
+                data-testid="loading-movie-spinner"
               >
-                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                  Loading...
-                </span>
+                <div
+                  className="inline-block h-96 w-96 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                  role="status"
+                >
+                  <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                    Loading...
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          {filteredMovies?.length ? (
+            <MoviePagination />
+          ) : null}
         </div>
       </div>
     </>

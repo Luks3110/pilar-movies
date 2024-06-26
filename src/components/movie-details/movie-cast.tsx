@@ -1,9 +1,9 @@
-import { IMAGE_BASE_URL, TMDB_URL } from "@/lib/constants/tmdb";
-import { MovieDetail } from "@/lib/types/movieDetails";
-import Image from "next/image";
-import Link from "next/link";
+import { IMAGE_BASE_URL, TMDB_URL } from '@/lib/constants/tmdb'
+import { MovieDetail } from '@/lib/types/movieDetails'
+import Image from 'next/image'
+import Link from 'next/link'
 
-const MovieCast = ({ cast }: { cast: MovieDetail["credits"]["cast"] }) => (
+const MovieCast = ({ cast }: { cast: MovieDetail['credits']['cast'] }) => (
   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 p-2 w-full h-full">
     {cast.slice(0, 5).map((member, index) => (
       <div
@@ -15,6 +15,7 @@ const MovieCast = ({ cast }: { cast: MovieDetail["credits"]["cast"] }) => (
             data-testid={`cast-member-${member.id}`}
             href={`${TMDB_URL}person/${member.id}`}
             prefetch={false}
+            className="lg:max-w-[15rem] lg:max-h-[15rem]"
           >
             <div className="block border border-transparent rounded-md overflow-hidden">
               <Image
@@ -44,6 +45,6 @@ const MovieCast = ({ cast }: { cast: MovieDetail["credits"]["cast"] }) => (
       </div>
     ))}
   </div>
-);
+)
 
-export default MovieCast;
+export default MovieCast

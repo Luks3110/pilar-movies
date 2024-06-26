@@ -7,7 +7,7 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 
 export default function MovieSearchbar() {
-  const { searchType, setSearch, setSearchType } = useFilterStore()
+  const { searchType, page, setSearch, setSearchType } = useFilterStore()
   const [inputValue, setInputValue] = useState('')
   const [debouncedValue, setDebouncedValue] = useState('')
 
@@ -20,6 +20,10 @@ export default function MovieSearchbar() {
       clearTimeout(handler)
     }
   }, [debouncedValue])
+
+  useEffect(() => {
+    setDebouncedValue(inputValue)
+  }, [page])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
