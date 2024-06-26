@@ -1,20 +1,19 @@
-import React from "react";
-import { CardContainer } from "../ui/card-container";
-import { CardBody } from "../ui/card-body";
-import Link from "next/link";
-import { MovieSearchResponse } from "@/lib/types/search";
-import { CardItem } from "../ui/card-item";
-import Image from "next/image";
-import { StarIcon } from "lucide-react";
-import { IMAGE_BASE_URL } from "@/lib/constants/tmdb";
+import { IMAGE_BASE_URL } from '@/lib/constants/tmdb'
+import { MovieSearchResponse } from '@/lib/types/search'
+import { StarIcon } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { CardBody } from '../ui/card-body'
+import { CardContainer } from '../ui/card-container'
+import { CardItem } from '../ui/card-item'
 
 const AnimatedMovieCard = ({ movie }: { movie: MovieSearchResponse }) => {
   return (
     <CardContainer className="w-full">
-      <CardBody>
+      <CardBody className="w-full">
         <Link
           href={`/movie/${movie.id}`}
-          className="flex flex-col items-center justify-center"
+          className="w-full flex flex-col items-center justify-center"
           prefetch={false}
         >
           <CardItem>
@@ -28,15 +27,15 @@ const AnimatedMovieCard = ({ movie }: { movie: MovieSearchResponse }) => {
                 />
               </div>
             </CardItem>
-            <CardItem className="p-4 flex flex-col justify-center items-center text-ellipsis">
-              <h3 className="w-full text-lg font-semibold truncate text-ellipsis justify-center items-center">
+            <CardItem className="p-4 flex flex-col justify-center items-center">
+              <h3 className="w-full text-lg font-semibold truncate overflow-hidden whitespace-nowrap text-ellipsis">
                 {movie.title}
               </h3>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground text-ellipsis">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>
-                  {movie.vote_average && typeof movie.vote_average === "number"
+                  {movie.vote_average && typeof movie.vote_average === 'number'
                     ? movie.vote_average.toFixed(1)
-                    : "0"}
+                    : '0'}
                 </span>
                 <StarIcon className="w-4 h-4 fill-primary" />
                 <span>{new Date(movie.release_date).getFullYear()}</span>
@@ -46,7 +45,7 @@ const AnimatedMovieCard = ({ movie }: { movie: MovieSearchResponse }) => {
         </Link>
       </CardBody>
     </CardContainer>
-  );
-};
+  )
+}
 
-export default AnimatedMovieCard;
+export default AnimatedMovieCard
