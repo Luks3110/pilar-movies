@@ -1,6 +1,6 @@
 import MovieSearchbar from '@/components/movie-searchbar'
 import useFilterStore from '@/hooks/stores/useFilterStore'
-import { fireEvent, render, screen } from '..'
+import { fireEvent, render, screen, waitFor } from '..'
 
 jest.mock('@/hooks/stores/useFilterStore')
 
@@ -24,11 +24,11 @@ describe('MovieSearchbar', () => {
     ).toBeInTheDocument()
   })
 
-  it('updates search input correctly', () => {
+  it('updates search input correctly', async () => {
     render(<MovieSearchbar />)
     const input = screen.getByPlaceholderText('Procure por filmes...')
     fireEvent.change(input, { target: { value: 'Matrix' } })
-    expect(mockSetSearch).toHaveBeenCalledWith('Matrix')
+    await waitFor(() => expect(mockSetSearch).toHaveBeenCalledWith('Matrix'))
   })
 
   it('toggles search type to trending when trending button is clicked', () => {
@@ -43,5 +43,20 @@ describe('MovieSearchbar', () => {
     const popularButton = screen.getByText('Popular')
     fireEvent.click(popularButton)
     expect(mockSetSearchType).toHaveBeenCalledWith('popular')
+  })
+
+  it('debounces search input updates', async () => {
+    jest.useFakeTimers()
+    render(<MovieSearchbar />)
+    const input = screen.getByPlaceholderText('Procure por filmes...')
+    fireEvent.change(input, { target: { value: 'Matrix' } })
+    fireEvent.change(input, { target: { value: 'Matrix Reloaded' } })
+    fireEvent.change(input, { target: { value: 'Matrix Revolutions' } })
+
+    jest.advanceTimersByTime(300) // Debounce time
+
+    await waitFor(() => expect(mockSetSearch).toHaveBeenCalledTimes(2))
+    expect(mockSetSearch).toHaveBeenCalledWith('Matrix Revolutions')
+    jest.useRealTimers()
   })
 })
