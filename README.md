@@ -20,6 +20,19 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Tools
+
+The main tools used in this project are:
+
+- React
+- Next.js
+- Tailwind CSS
+- TMDB API
+- Vercel
+- Typescript
+- ESLint
+- Prettier
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
