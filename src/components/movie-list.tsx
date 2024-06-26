@@ -9,7 +9,6 @@ import { TimeWindow } from '@/lib/types/filter'
 import MovieSearchbar from './movie-searchbar'
 import AnimatedMovieCard from './movies/animated-movie-card'
 import SearchSwitch from './movies/search-switch'
-import { Skeleton } from './ui/skeleton'
 import { useToast } from './ui/use-toast'
 
 export function MovieList() {
@@ -81,20 +80,14 @@ export function MovieList() {
               <AnimatedMovieCard key={movie.id} movie={movie} />
             ))
           ) : (
-            <div
-              className="flex flex-col space-y-3 w-full h-full items-center justify-center"
-              data-testid="loading-movie-skeleton"
-            >
-              <div className="w-full">
-                <Skeleton className="h-[125px] w-[45vw] rounded-xl" />
-              </div>
-              <div className="space-y-2 w-full">
-                <div className="w-full">
-                  <Skeleton className="h-4 w-[250px]" />
-                </div>
-                <div className="w-full">
-                  <Skeleton className="h-4 w-[200px]" />
-                </div>
+            <div className="fixed inset-0 flex items-center justify-center">
+              <div
+                className="inline-block h-96 w-96 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status"
+              >
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                  Loading...
+                </span>
               </div>
             </div>
           )}
