@@ -8,19 +8,19 @@ import httpClient from '../client/httpClient'
 
 const getMovies = async ({ search, page }: MovieSearchParams) => {
   return httpClient.get<SearchResponse<MovieSearchResponse>>(
-    `/search/movie?query=${search}&language=pt-BR&page=${page}`,
+    `/search/movie?query=${search}&language=pt-BR${page ? `&page=${page}` : ''}`,
   )
 }
 
 const getTrendingMovies = async ({ timeWindow, page }: MovieSearchParams) => {
   return httpClient.get<SearchResponse<MovieSearchResponse>>(
-    `/trending/movie/${timeWindow}?page=${page}`,
+    `/trending/movie/${timeWindow}${page ? `?page=${page}` : ''}`,
   )
 }
 
 const getPopularMovies = async ({ search, page }: MovieSearchParams) => {
   return httpClient.get<SearchResponse<MovieSearchResponse>>(
-    `/movie/popular?query=${search}&language=pt-BR&page=${page}`,
+    `/movie/popular?query=${search}&language=pt-BR${page ? `&page=${page}` : ''}`,
   )
 }
 

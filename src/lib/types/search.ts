@@ -1,7 +1,7 @@
 import { SearchType, TimeWindow } from './filter'
 
 export type MovieSearchParams = {
-  search: string
+  search?: string
   searchType?: SearchType
   timeWindow?: TimeWindow
   page?: number

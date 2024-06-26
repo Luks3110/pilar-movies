@@ -5,13 +5,19 @@ import { fireEvent, render, screen } from '../..'
 jest.mock('@/hooks/stores/useFilterStore')
 
 describe('MoviePagination', () => {
+  const mockAddPage = jest.fn()
+  const mockRemovePage = jest.fn()
   const mockSetPage = jest.fn()
+  const mockSetTotalPages = jest.fn()
 
   beforeEach(() => {
     ;(useFilterStore as unknown as jest.Mock).mockReturnValue({
       page: 1,
       totalPages: 5,
+      addPage: mockAddPage,
+      removePage: mockRemovePage,
       setPage: mockSetPage,
+      setTotalPages: mockSetTotalPages,
     })
   })
 
@@ -24,16 +30,16 @@ describe('MoviePagination', () => {
   it('calls setPage with next page on next button click', () => {
     render(<MoviePagination />)
     fireEvent.click(screen.getByTestId('pagination-next'))
-    expect(mockSetPage).toHaveBeenCalledWith(2)
+    expect(mockAddPage).toHaveBeenCalled()
   })
 
   it('calls setPage with previous page on previous button click', () => {
     ;(useFilterStore as unknown as jest.Mock).mockReturnValue({
       page: 2,
-      setPage: mockSetPage,
+      removePage: mockRemovePage,
     })
     render(<MoviePagination />)
     fireEvent.click(screen.getByTestId('pagination-previous'))
-    expect(mockSetPage).toHaveBeenCalledWith(1)
+    expect(mockRemovePage).toHaveBeenCalled()
   })
 })

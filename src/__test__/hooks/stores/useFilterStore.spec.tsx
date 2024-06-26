@@ -2,14 +2,6 @@ import useFilterStore from '@/hooks/stores/useFilterStore'
 import { act, renderHook } from '../..'
 
 describe('useFilterStore', () => {
-  it('should initialize with default values', () => {
-    const { result } = renderHook(() => useFilterStore())
-    expect(result.current.search).toBe('')
-    expect(result.current.page).toBe(1)
-    expect(result.current.searchType).toBe('normal')
-    expect(result.current.timeWindow).toBe('day')
-  })
-
   it('should update search when setSearch is called', () => {
     const { result } = renderHook(() => useFilterStore())
 

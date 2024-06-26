@@ -2,32 +2,16 @@
 
 import useFilterStore from '@/hooks/stores/useFilterStore'
 import { StarIcon, TrendingUpIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 
 export default function MovieSearchbar() {
-  const { searchType, page, setSearch, setSearchType } = useFilterStore()
-  const [inputValue, setInputValue] = useState('')
-  const [debouncedValue, setDebouncedValue] = useState('')
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setSearch(debouncedValue)
-    }, 300)
-
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [debouncedValue])
-
-  useEffect(() => {
-    setDebouncedValue(inputValue)
-  }, [page])
+  const { search, searchType, setSearch, setSearchType, setPage } =
+    useFilterStore()
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    setDebouncedValue(e.target.value)
+    setSearch(e.target.value)
+    setPage(1)
   }
 
   const handleTrendingClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +31,7 @@ export default function MovieSearchbar() {
           onChange={handleSearch}
           className="w-full rounded-full
            border-muted px-4 py-2 focus:ring-primary"
-          value={inputValue}
+          value={search}
         />
       </div>
       <div

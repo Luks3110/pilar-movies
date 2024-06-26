@@ -7,6 +7,7 @@ jest.mock('@/hooks/stores/useFilterStore')
 describe('MovieSearchbar', () => {
   const mockSetSearch = jest.fn()
   const mockSetSearchType = jest.fn()
+  const mockSetPage = jest.fn()
 
   beforeEach(() => {
     ;(useFilterStore as unknown as jest.Mock).mockReturnValue({
@@ -14,6 +15,7 @@ describe('MovieSearchbar', () => {
       searchType: 'normal',
       setSearch: mockSetSearch,
       setSearchType: mockSetSearchType,
+      setPage: mockSetPage,
     })
   })
 
@@ -43,20 +45,5 @@ describe('MovieSearchbar', () => {
     const popularButton = screen.getByText('Popular')
     fireEvent.click(popularButton)
     expect(mockSetSearchType).toHaveBeenCalledWith('popular')
-  })
-
-  it('debounces search input updates', async () => {
-    jest.useFakeTimers()
-    render(<MovieSearchbar />)
-    const input = screen.getByPlaceholderText('Procure por filmes...')
-    fireEvent.change(input, { target: { value: 'Matrix' } })
-    fireEvent.change(input, { target: { value: 'Matrix Reloaded' } })
-    fireEvent.change(input, { target: { value: 'Matrix Revolutions' } })
-
-    jest.advanceTimersByTime(300) // Debounce time
-
-    await waitFor(() => expect(mockSetSearch).toHaveBeenCalledTimes(2))
-    expect(mockSetSearch).toHaveBeenCalledWith('Matrix Revolutions')
-    jest.useRealTimers()
   })
 })

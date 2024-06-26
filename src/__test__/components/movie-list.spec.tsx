@@ -12,6 +12,10 @@ describe('MovieList', () => {
   const mockSetSearchType = jest.fn()
   const mockSetTimeWindow = jest.fn()
   const mockToast = jest.fn()
+  const mockAddPage = jest.fn()
+  const mockRemovePage = jest.fn()
+  const mockSetPage = jest.fn()
+  const mockSetTotalPages = jest.fn()
 
   beforeEach(() => {
     ;(useFilterStore as unknown as jest.Mock).mockReturnValue({
@@ -20,6 +24,10 @@ describe('MovieList', () => {
       timeWindow: 'day',
       setSearchType: mockSetSearchType,
       setTimeWindow: mockSetTimeWindow,
+      addPage: mockAddPage,
+      removePage: mockRemovePage,
+      setPage: mockSetPage,
+      setTotalPages: mockSetTotalPages,
     })
     ;(useSearch as jest.Mock).mockReturnValue({
       data: {

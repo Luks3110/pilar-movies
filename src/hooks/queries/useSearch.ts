@@ -7,9 +7,9 @@ import {
 import { useQuery } from '@tanstack/react-query'
 
 const useSearch = ({
-  search,
+  search = '',
   searchType = 'normal',
-  timeWindow,
+  timeWindow = 'day',
   page = 1,
 }: MovieSearchParams) => {
   switch (searchType) {

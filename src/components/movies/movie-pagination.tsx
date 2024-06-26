@@ -8,17 +8,17 @@ import {
 import useFilterStore from '@/hooks/stores/useFilterStore'
 
 export const MoviePagination = () => {
-  const { page, totalPages, setPage } = useFilterStore()
+  const { page, totalPages, addPage, removePage } = useFilterStore()
 
   const handleNext = () => {
-    if (page < totalPages) {
-      setPage(page + 1)
+    if (page && totalPages && page < totalPages) {
+      addPage()
     }
   }
 
   const handlePrevious = () => {
-    if (page > 1) {
-      setPage(page - 1)
+    if (page && page > 1) {
+      removePage()
     }
   }
 
