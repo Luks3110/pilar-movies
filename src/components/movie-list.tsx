@@ -80,7 +80,10 @@ export function MovieList() {
               <AnimatedMovieCard key={movie.id} movie={movie} />
             ))
           ) : (
-            <div className="fixed inset-0 flex items-center justify-center">
+            <div
+              className="fixed inset-0 flex items-center justify-center"
+              data-testid="loading-movie-spinner"
+            >
               <div
                 className="inline-block h-96 w-96 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                 role="status"

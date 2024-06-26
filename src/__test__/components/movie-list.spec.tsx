@@ -83,7 +83,7 @@ describe('MovieList', () => {
         <MovieList />
       </QueryClientWrapper>,
     )
-    expect(screen.getByTestId('loading-movie-skeleton')).toBeInTheDocument()
+    expect(screen.getByTestId('loading-movie-spinner')).toBeInTheDocument()
   })
 
   it('displays error state and shows toast message', () => {
