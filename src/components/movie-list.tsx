@@ -6,7 +6,6 @@ import useSearch from '@/hooks/queries/useSearch'
 import useFilterStore from '@/hooks/stores/useFilterStore'
 import { timeWindowsOptions } from '@/lib/constants/timeWindowsOptions'
 import { TimeWindow } from '@/lib/types/filter'
-import MovieSearchbar from './movie-searchbar'
 import AnimatedMovieCard from './movies/animated-movie-card'
 import { MoviePagination } from './movies/movie-pagination'
 import SearchSwitch from './movies/search-switch'
@@ -63,13 +62,8 @@ export function MovieList() {
 
   return (
     <>
-      <header className="bg-background px-4 py-3 shadow-sm">
-        <div className="container mx-auto flex items-center">
-          <MovieSearchbar />
-        </div>
-      </header>
       <div
-        className={`flex w-full gap-6 justify-between p-6 ${
+        className={`flex w-full gap-6 justify-center flex-col sm:flex-row sm:justify-between p-6 ${
           searchType !== 'trending' ? 'md:grid-cols-1' : 'md:grid-cols-4'
         }`}
       >
@@ -81,7 +75,7 @@ export function MovieList() {
         />
         <div>
           <div
-            className={` md:col-span-4 lg:col-span-6 grid md:grid-cols-3 lg:grid-cols-5 ${!normalOrTrending ? 'md:grid-cols-3 lg:grid-cols-5 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
+            className={`flex flex-col justify-center items-center md:col-span-4 lg:col-span-6 sm:grid md:grid-cols-3 lg:grid-cols-5 ${!normalOrTrending ? 'md:grid-cols-3 lg:grid-cols-5 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
           >
             {!isLoading || (!isError && filteredMovies?.length) ? (
               filteredMovies?.map((movie) => (
