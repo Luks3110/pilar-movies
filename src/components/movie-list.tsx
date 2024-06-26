@@ -1,20 +1,79 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import useSearch from '@/hooks/queries/useSearch'
 import useFilterStore from '@/hooks/stores/useFilterStore'
 import { timeWindowsOptions } from '@/lib/constants/timeWindowsOptions'
-import { TimeWindow } from '@/lib/types/filter'
+import { SearchType, TimeWindow } from '@/lib/types/filter'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import MovieSearchbar from './movie-searchbar'
 import AnimatedMovieCard from './movies/animated-movie-card'
 import { MoviePagination } from './movies/movie-pagination'
 import SearchSwitch from './movies/search-switch'
 import { useToast } from './ui/use-toast'
 
+type SearchParams = {
+  search?: string
+  searchType?: SearchType
+  timeWindow?: TimeWindow
+  page?: number
+}
+
 export function MovieList() {
-  const { search, searchType, timeWindow, page, setTimeWindow } =
-    useFilterStore()
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const {
+    search,
+    searchType,
+    timeWindow,
+    page,
+    setSearch,
+    setSearchType,
+    setTimeWindow,
+    setPage,
+    setTotalPages,
+  } = useFilterStore()
+
+  useEffect(() => {
+    const currentParams = Object.fromEntries(
+      new URLSearchParams(window.location.search),
+    )
+
+    const updates: SearchParams = {}
+
+    if (currentParams.search !== search) updates.search = search
+    if (currentParams.searchType !== searchType) updates.searchType = searchType
+    if (currentParams.timeWindow !== timeWindow) updates.timeWindow = timeWindow
+    if (currentParams.page !== page.toString()) updates.page = page
+
+    if (Object.keys(updates).length > 0) {
+      const newParams = new URLSearchParams({
+        ...currentParams,
+        ...updates,
+      } as Record<string, string>)
+      router.push(`${pathname}?${newParams.toString()}`)
+    }
+  }, [search, searchType, timeWindow, page, router, pathname])
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const params = new URLSearchParams(window.location.search)
+      const search = params.get('search')
+      const searchType = params.get('searchType')
+      const timeWindow = params.get('timeWindow')
+      const page = params.get('page')
+
+      if (search) setSearch(search)
+      if (searchType) setSearchType(searchType as SearchType)
+      if (timeWindow) setTimeWindow(timeWindow as TimeWindow)
+      if (page) setPage(Number(page))
+    }
+
+    handleRouteChange()
+  }, [pathname, searchParams])
 
   const handleTimeWindow = (newTimeWindow: TimeWindow) => {
     setTimeWindow(newTimeWindow)
@@ -32,6 +91,8 @@ export function MovieList() {
   })
 
   const { toast } = useToast()
+
+  const searchRef = useRef(search)
 
   useEffect(() => {
     if (isError) {
@@ -53,6 +114,19 @@ export function MovieList() {
     () => ['trending', 'normal'].includes(searchType),
     [searchType],
   )
+
+  useEffect(() => {
+    if (movies?.data?.total_pages) {
+      setTotalPages(movies.data.total_pages)
+    }
+  }, [movies])
+
+  useEffect(() => {
+    if (searchRef.current !== search) {
+      setPage(1)
+      searchRef.current = search
+    }
+  }, [search, setPage])
 
   return (
     <>
@@ -98,9 +172,7 @@ export function MovieList() {
               </div>
             )}
           </div>
-          {filteredMovies?.length ? (
-            <MoviePagination />
-          ) : null}
+          {filteredMovies?.length ? <MoviePagination /> : null}
         </div>
       </div>
     </>

@@ -10,6 +10,7 @@ describe('MoviePagination', () => {
   beforeEach(() => {
     ;(useFilterStore as unknown as jest.Mock).mockReturnValue({
       page: 1,
+      totalPages: 5,
       setPage: mockSetPage,
     })
   })
@@ -22,7 +23,7 @@ describe('MoviePagination', () => {
 
   it('calls setPage with next page on next button click', () => {
     render(<MoviePagination />)
-    fireEvent.click(screen.getByLabelText('Go to next page'))
+    fireEvent.click(screen.getByTestId('pagination-next'))
     expect(mockSetPage).toHaveBeenCalledWith(2)
   })
 
@@ -32,7 +33,7 @@ describe('MoviePagination', () => {
       setPage: mockSetPage,
     })
     render(<MoviePagination />)
-    fireEvent.click(screen.getByLabelText('Go to previous page'))
+    fireEvent.click(screen.getByTestId('pagination-previous'))
     expect(mockSetPage).toHaveBeenCalledWith(1)
   })
 })

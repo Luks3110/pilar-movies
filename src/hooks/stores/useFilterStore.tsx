@@ -16,10 +16,10 @@ interface FilterStore {
 
 const useFilterStore = create<FilterStore>((set) => ({
   search: '',
-  page: 1,
-  totalPages: 1,
   searchType: 'normal',
   timeWindow: 'day',
+  page: 1,
+  totalPages: 1,
   setSearch: (search) => set({ search }),
   setPage: (page) => set({ page }),
   setSearchType: (searchType) => set({ searchType }),

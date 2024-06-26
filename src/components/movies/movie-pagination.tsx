@@ -8,24 +8,33 @@ import {
 import useFilterStore from '@/hooks/stores/useFilterStore'
 
 export const MoviePagination = () => {
-  const { page, setPage } = useFilterStore()
+  const { page, totalPages, setPage } = useFilterStore()
 
   const handleNext = () => {
-    setPage(page + 1)
+    if (page < totalPages) {
+      setPage(page + 1)
+    }
   }
 
   const handlePrevious = () => {
-    setPage(page - 1)
+    if (page > 1) {
+      setPage(page - 1)
+    }
   }
 
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem className="cursor-pointer">
-          <PaginationPrevious onClick={handlePrevious} />
+        <PaginationItem
+          className={page === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}
+        >
+          <PaginationPrevious
+            onClick={handlePrevious}
+            data-testid="pagination-previous"
+          />
         </PaginationItem>
         <PaginationItem className="cursor-pointer">
-          <PaginationNext onClick={handleNext} />
+          <PaginationNext onClick={handleNext} data-testid="pagination-next" />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
