@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { StarIcon, TrendingUpIcon } from "lucide-react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import useFilterStore from "@/hooks/stores/filter-store";
+import useFilterStore from '@/hooks/stores/useFilterStore'
+import { StarIcon, TrendingUpIcon } from 'lucide-react'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
 
 export default function MovieSearchbar() {
-  const { searchType, setSearch, setSearchType } = useFilterStore();
+  const { searchType, setSearch, setSearchType } = useFilterStore()
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+    setSearch(e.target.value)
+  }
 
   const handleTrendingClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSearchType(searchType === "trending" ? "normal" : "trending");
-  };
+    setSearchType(searchType === 'trending' ? 'normal' : 'trending')
+  }
 
   const handlePopularClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSearchType(searchType === "popular" ? "normal" : "popular");
-  };
+    setSearchType(searchType === 'popular' ? 'normal' : 'popular')
+  }
 
   return (
     <div className="flex-1 relative w-full ">
@@ -36,7 +36,7 @@ export default function MovieSearchbar() {
       >
         <Button
           size="icon"
-          className={`w-full h-full rounded-l-full border-transparent rounded-r-none transition-transform duration-300 ease-in-out hover:scale-105 ${searchType === "trending" ? "bg-zinc-100 text-zinc-950 hover:text-white" : ""}`}
+          className={`w-full h-full rounded-l-full border-transparent rounded-r-none transition-transform duration-300 ease-in-out hover:scale-105 ${searchType === 'trending' ? 'bg-zinc-100 text-zinc-950 hover:text-white' : ''}`}
           onClick={handleTrendingClick}
         >
           <div className="flex items-center gap-1">
@@ -46,7 +46,7 @@ export default function MovieSearchbar() {
         </Button>
         <Button
           size="icon"
-          className={`w-full h-full rounded-r-full rounded-l-none transition-transform duration-300 ease-in-out hover:scale-105 ${searchType === "popular" ? "bg-zinc-100 text-zinc-950 hover:text-white" : ""}`}
+          className={`w-full h-full rounded-r-full rounded-l-none transition-transform duration-300 ease-in-out hover:scale-105 ${searchType === 'popular' ? 'bg-zinc-100 text-zinc-950 hover:text-white' : ''}`}
           onClick={handlePopularClick}
         >
           <div className="flex items-center gap-1">
@@ -56,5 +56,5 @@ export default function MovieSearchbar() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

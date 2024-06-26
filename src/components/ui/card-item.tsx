@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
-import useCardStore from "@/hooks/stores/card-store";
+import useCardStore from '@/hooks/stores/useCardStore'
+import { cn } from '@/lib/utils'
+import { useEffect, useRef } from 'react'
 
 export const CardItem = ({
-  as: Tag = "div",
+  as: Tag = 'div',
   children,
   className,
   translateX = 0,
@@ -14,43 +14,43 @@ export const CardItem = ({
   rotateZ = 0,
   ...rest
 }: {
-  as?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  translateX?: number | string;
-  translateY?: number | string;
-  translateZ?: number | string;
-  rotateX?: number | string;
-  rotateY?: number | string;
-  rotateZ?: number | string;
-  [key: string]: any;
+  as?: React.ElementType
+  children: React.ReactNode
+  className?: string
+  translateX?: number | string
+  translateY?: number | string
+  translateZ?: number | string
+  rotateX?: number | string
+  rotateY?: number | string
+  rotateZ?: number | string
+  [key: string]: any
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { isMouseEntered } = useCardStore();
+  const ref = useRef<HTMLDivElement>(null)
+  const { isMouseEntered } = useCardStore()
 
   useEffect(() => {
-    handleAnimations();
-  }, [isMouseEntered]);
+    handleAnimations()
+  }, [isMouseEntered])
 
   const handleAnimations = () => {
-    if (!ref.current) return;
+    if (!ref.current) return
     if (isMouseEntered) {
-      ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+      ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`
     } else {
-      ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
+      ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`
     }
-  };
+  }
 
   return (
     <Tag
       ref={ref}
       className={cn(
-        "w-full h-full items-center justify-center text-center transition duration-200 ease-linear",
-        className
+        'w-full h-full items-center justify-center text-center transition duration-200 ease-linear',
+        className,
       )}
       {...rest}
     >
       {children}
     </Tag>
-  );
-};
+  )
+}
