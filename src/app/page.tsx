@@ -69,7 +69,7 @@ export default async function Home({
 
   return (
     <main>
-      <header className="bg-background px-4 py-3 shadow-sm">
+      <header className="bg-background px-4 py-3 rounded-b-lg">
         <div className="container mx-auto flex items-center">
           <MovieSearchbar />
         </div>

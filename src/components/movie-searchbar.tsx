@@ -25,19 +25,19 @@ export default function MovieSearchbar() {
   }
 
   return (
-    <div className="flex-1 relative w-full ">
+    <div className="flex-1 relative w-full rounded-b-lg">
       <div className="w-full h-full">
         <Input
           type="text"
           placeholder="Procure por filmes..."
           onChange={handleSearch}
-          className="w-full rounded-full
-           border-muted px-4 py-2 focus:ring-primary"
+          className="text-2xl w-full h-[35%] rounded-full
+           border-muted px-4 py-2 focus:ring-primary shadow-lg border-b-1"
           value={search}
         />
       </div>
       <div
-        className={`w-[20%] h-[80%] absolute right-2 top-1/2 -translate-y-1/2 flex items-center bg-slate-700 shadow-zinc-900  rounded-full outline-none`}
+        className={`w-[20%] h-[80%] absolute right-2 top-1/2 -translate-y-1/2 flex items-center bg-slate-700 shadow-2xl rounded-full outline-none`}
       >
         <Button
           size="icon"
