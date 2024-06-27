@@ -25,7 +25,7 @@ export default function MovieSearchbar() {
   }
 
   return (
-    <div className="flex-1 relative w-full rounded-b-lg">
+    <div className="flex-1 sticky top-0 w-full rounded-b-lg">
       <div className="w-full h-full">
         <Input
           type="text"
