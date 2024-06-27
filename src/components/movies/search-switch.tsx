@@ -1,6 +1,5 @@
-import { TimeWindow } from "@/lib/types/filter";
-import React from "react";
-import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import { TimeWindow } from '@/lib/types/filter'
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group'
 
 const SearchSwitch = ({
   searchType,
@@ -8,16 +7,16 @@ const SearchSwitch = ({
   handleTimeWindow,
   timeWindowsOptions,
 }: {
-  searchType: string;
-  timeWindow: string;
-  handleTimeWindow: (newTimeWindow: TimeWindow) => void;
-  timeWindowsOptions: { value: string; label: string }[];
+  searchType: string
+  timeWindow: string
+  handleTimeWindow: (newTimeWindow: TimeWindow) => void
+  timeWindowsOptions: { value: string; label: string }[]
 }) => {
   return (
     <div
       data-testid="search-switch"
-      className={`w-96 col-span-1 bg-background rounded-md shadow-sm ${
-        searchType !== "trending" ? "hidden" : "block"
+      className={`w-96 flex flex-col justify-center items-center col-span-1 bg-background rounded-md shadow-sm ${
+        searchType !== 'trending' ? 'hidden' : 'block'
       }`}
     >
       <ToggleGroup
@@ -44,7 +43,7 @@ const SearchSwitch = ({
         </div>
       </ToggleGroup>
     </div>
-  );
-};
+  )
+}
 
-export default SearchSwitch;
+export default SearchSwitch
