@@ -16,10 +16,12 @@ export default function MovieSearchbar() {
 
   const handleTrendingClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSearchType(searchType === 'trending' ? 'normal' : 'trending')
+    setPage(1)
   }
 
   const handlePopularClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSearchType(searchType === 'popular' ? 'normal' : 'popular')
+    setPage(1)
   }
 
   return (

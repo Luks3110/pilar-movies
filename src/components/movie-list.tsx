@@ -67,15 +67,17 @@ export function MovieList() {
           searchType !== 'trending' ? 'md:grid-cols-1' : 'md:grid-cols-4'
         }`}
       >
-        <SearchSwitch
-          searchType={searchType || ''}
-          timeWindow={timeWindow || ''}
-          handleTimeWindow={handleTimeWindow}
-          timeWindowsOptions={timeWindowsOptions}
-        />
+        {movies?.data?.results?.length ? (
+          <SearchSwitch
+            searchType={searchType || ''}
+            timeWindow={timeWindow || ''}
+            handleTimeWindow={handleTimeWindow}
+            timeWindowsOptions={timeWindowsOptions}
+          />
+        ) : null}
         <div>
           <div
-            className={`flex flex-col justify-center items-center md:col-span-4 lg:col-span-6 sm:grid md:grid-cols-3 lg:grid-cols-5 ${!normalOrTrending ? 'md:grid-cols-3 lg:grid-cols-5 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
+            className={`flex flex-col justify-center items-center md:col-span-4 lg:col-span-6 sm:grid md:grid-cols-3 lg:grid-cols-5 ${searchType !== 'trending' ? 'md:grid-cols-3 lg:grid-cols-6 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
           >
             {!isLoading || (!isError && filteredMovies?.length) ? (
               filteredMovies?.map((movie) => (

@@ -15,7 +15,7 @@ const SearchSwitch = ({
   return (
     <div
       data-testid="search-switch"
-      className={`w-96 flex flex-col justify-center items-center col-span-1 bg-background rounded-md shadow-sm ${
+      className={`w-96 flex flex-col justify-start items-center col-span-1 bg-background rounded-md shadow-sm ${
         searchType !== 'trending' ? 'hidden' : 'block'
       }`}
     >
