@@ -33,7 +33,11 @@ export const MoviePagination = () => {
             data-testid="pagination-previous"
           />
         </PaginationItem>
-        <PaginationItem className="cursor-pointer">
+        <PaginationItem
+          className={
+            page === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+          }
+        >
           <PaginationNext onClick={handleNext} data-testid="pagination-next" />
         </PaginationItem>
       </PaginationContent>
