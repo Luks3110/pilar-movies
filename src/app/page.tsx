@@ -1,6 +1,7 @@
 import { MovieList } from '@/components/movie-list'
 import MovieSearchbar from '@/components/movie-searchbar'
 import LoadingSpinner from '@/components/ui/loading-spinner'
+import { safeJsonParse } from '@/lib/safeJsonParse'
 import {
   getMovies,
   getPopularMovies,
@@ -24,17 +25,19 @@ export default async function Home({
 
   const movieFilterStore = JSON.parse(
     searchParams
-      ? JSON.parse((searchParams['movie-filter-store'] as string) || '{}')
-      : {},
+      ? (searchParams['movie-filter-store'] as string) || '{}'
+      : '{}',
   )
+
+  const parsedMovieStore = safeJsonParse(movieFilterStore)
 
   await queryClient.prefetchQuery({
     queryKey: [
       'normalSearch',
       {
-        search: movieFilterStore.search,
-        searchType: movieFilterStore.searchType,
-        timeWindow: movieFilterStore.timeWindow,
+        search: parsedMovieStore.search,
+        searchType: parsedMovieStore.searchType,
+        timeWindow: parsedMovieStore.timeWindow,
       },
     ],
     queryFn: async () => getMovies({ search: '' }),
@@ -44,9 +47,9 @@ export default async function Home({
     queryKey: [
       'normalSearch',
       {
-        search: movieFilterStore.search,
-        searchType: movieFilterStore.searchType,
-        timeWindow: movieFilterStore.timeWindow,
+        search: parsedMovieStore.search,
+        searchType: parsedMovieStore.searchType,
+        timeWindow: parsedMovieStore.timeWindow,
       },
     ],
     queryFn: async () => getTrendingMovies({ search: '' }),
@@ -56,9 +59,9 @@ export default async function Home({
     queryKey: [
       'normalSearch',
       {
-        search: movieFilterStore.search,
-        searchType: movieFilterStore.searchType,
-        timeWindow: movieFilterStore.timeWindow,
+        search: parsedMovieStore.search,
+        searchType: parsedMovieStore.searchType,
+        timeWindow: parsedMovieStore.timeWindow,
       },
     ],
     queryFn: async () => getPopularMovies({}),
