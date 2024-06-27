@@ -75,7 +75,7 @@ export function MovieList() {
             timeWindowsOptions={timeWindowsOptions}
           />
         ) : null}
-        <div>
+        <div className="w-full h-full">
           <div
             className={`flex flex-col justify-center items-center md:col-span-4 lg:col-span-6 sm:grid md:grid-cols-3 lg:grid-cols-5 ${searchType !== 'trending' ? 'md:grid-cols-3 lg:grid-cols-6 gap-6 w-full' : 'md:grid-cols-4 lg:grid-cols-4 gap-6'}  max-w-full`}
           >
